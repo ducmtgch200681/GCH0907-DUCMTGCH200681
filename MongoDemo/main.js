@@ -17,7 +17,7 @@ app.get('/vewAll', async (req,res) => {
     let dbo = server.db("ATNToys")
     //get data
     let product = await dbo.collection('product').find().toArray()
-    res.render('allProduct')
+    res.render('allProduct',{'products':products})
 })
 
 app.post('/newProduct', async (req,res) => {
