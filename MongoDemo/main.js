@@ -10,13 +10,25 @@ app.use(express.urlencoded({extended:true}))
 var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb://127.0.0.1/27017'
 
-app.get('/vewAll', async (req,res) => {
+app.post('/search', async (req,res) => {
+    let name = req.body.txtName
+
     //1. ket noi den server co dia chi trong url
     let server = await MongoClient.connect(url)
     //2. truy cap Database ATNToys
     let dbo = server.db("ATNToys")
     //get data
-    let product = await dbo.collection('product').find().toArray()
+    let products = await dbo.collection('product').find({'name': new RegExp(name, 'i')}).toArray()
+    res.render('allProduct',{'products':products})
+})
+
+app.get('/viewAll', async (req,res) => {
+    //1. ket noi den server co dia chi trong url
+    let server = await MongoClient.connect(url)
+    //2. truy cap Database ATNToys
+    let dbo = server.db("ATNToys")
+    //get data
+    let products = await dbo.collection('product').find()
     res.render('allProduct',{'products':products})
 })
 
