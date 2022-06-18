@@ -31,11 +31,11 @@
              {{#each products}}
                 {{#if @first}}
                     <div class="item active">
-                        <img src="{{picture}}"  alt="{{name}}" width="200" height="110">
+                        <img class="mx-auto" src="{{picture}}"  alt="{{name}}" width="200" height="110">
                     </div>
                 {{else}}
                 <div class="item">
-                    <img src="{{picture}}" alt="{{name}}" width="200" height="110">
+                    <img class="mx-auto" src="{{picture}}" alt="{{name}}" width="200" height="110">
                 </div>
                 {{/if}}
             {{/each}}       
@@ -70,7 +70,7 @@
             <tr>
                 <td>{{@index}}-{{name}}</td>
                 <td>{{price}}</td>
-                <td><img src="{{picture}}" width="150" height="100" /></td>
+                <td><img class="mx-auto" src="{{picture}}" width="150" height="100" /></td>
             </tr>
             {{/each}}
         </tbody>

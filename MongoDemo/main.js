@@ -5,7 +5,7 @@ app.set('view engine','hbs')
 app.use(express.urlencoded({extended:true}))
 
 var MongoClient = require('mongodb').MongoClient
-var url = 'mongodb://127.0.0.1/27017'
+var url = 'mongodb+srv://ducmtgch200681:gDo7daGRt7OJjQC2@cluster0.qvorunb.mongodb.net/test'
 
 app.post('/search',async (req,res)=>{
     let name = req.body.txtName
@@ -33,6 +33,10 @@ app.post('/newProduct', async (req,res)=>{
     let name = req.body.txtName
     let price = req.body.txtPrice
     let picture = req.body.txtPicture
+    if(name.length <= 5){
+        res.render('newProduct', {'nameError':'Ten hong nho hon 5 i tu'})
+        return
+    }
     let product = {
         'name': name,
         'price': price,
