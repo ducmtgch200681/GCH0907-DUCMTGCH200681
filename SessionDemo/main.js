@@ -1,7 +1,7 @@
 var express = require('express')
 const session = require('express-session')
 var MongoClient = require('mongodb').MongoClient
-var url = 'mongodb://localhost:27017'
+var url = 'mongodb://127.0.0.1:27017'
 var app = express()
 
 app.set('view engine', 'hbs')
@@ -26,12 +26,12 @@ app.post('/register',async (req,res)=>{
 
     let server = await MongoClient.connect(url)
     let dbo = server.db("ATNToys")
-    let daDangNhap = await dbo.collection('users').find({'name':name}).toArray
+    let daDangNhap = await dbo.collection("users").find({$and :[{'name':name}]}).toArray()
     if(daDangNhap.length > 0){
         res.render('profile',{'name': req.session.userName,
                 // 'chuaDangNhap': chuaDangNhap, 
                 'daDangNhap': daDangNhap,
-                // 'taikhoan': taikhoan
+                
             })
     } else {
         res.write('khong hop le')
@@ -62,7 +62,7 @@ app.get('/',(req,res)=>{
     // let dbo = server.db("ATNToys")
     // let taikhoan = await dbo.collection('users').find({$and: [{name:'Vinh', name: 'Linh'}, {name: {$exists:true}}]})
 
-    res.render('home',{'accessCount': accessCount, 'chuaDangNhap': chuaDangNhap, 
+    res.render('home',{'accessCount': accessCount, 'chuaDangNhap': chuaDangNhap 
                 // 'daDangNhap': daDangNhap, 
                 // 'taikhoan': taikhoan
             })
